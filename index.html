@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles/style.css">
+    <title>SA Taxi Math Calculator</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>SA Taxi Math Calculator</h1>
+            <div class="price">
+                <label for="taxiPrice">Taxi Price (R): </label>
+                <input type="text" id="taxiPrice" value="">
+                <hr>
+            </div>
+        </div>
+
+        <hr>
+
+        <div id="main-passenger">
+            <h3>Passenger 1</h3>
+            <label>Number of People: </label>
+            <input type="text" id="no_of_people">
+
+            <p id="paragraphDriverMoney">Driver's money: <a id="driversMoney"></a></p>
+
+            <label>Amount Paid: </label>
+            <input type="text" id="amtPaid">
+
+            <p>Change: <a id="change"></a></p>
+            <hr>
+        </div>
+
+        <div id="extra-passengers"></div>
+
+        <br>
+        <button id="btnAddPassenger" onclick="showNextPassenger()">&#8853; Add Passenger</button>
+        <br><br>
+        <hr>
+    </div>
+
+    <div class="footer">
+        <button id="btnCalculate" onclick="calcDriversMoney(); calcChange();">Calculate</button>
+    </div>
+
+
+    <script>
+        let passengerCount = 1;
+
+        function showNextPassenger() {
+            passengerCount++;
+
+            const passengerTemplate = `
+                <div class="passenger">
+                    <h3>Passenger ${passengerCount}</h3>
+
+                    <label>Number of People: </label>
+                    <input type="text" class="no_of_people">
+
+                    <p id = "paragraphDriverMoney">Driver's money: <a class="driversMoney"></a></p>
+
+                    <label>Amount Paid: </label>
+                    <input type="text" class="amtPaid">
+
+                    <p>Change: <a class="change"></a></p>
+                    <hr>
+                </div>
+            `;
+
+            const newDiv = document.createElement("div");
+            newDiv.innerHTML = passengerTemplate;
+            document.getElementById("extra-passengers").appendChild(newDiv);
+        }
+
+        function calcDriversMoney() {
+            const taxiPrice = parseFloat(document.getElementById("taxiPrice").value) || 0;
+
+            const mainNoPeople = parseInt(document.getElementById("no_of_people").value) || 0;
+            const mainDriversMoney = taxiPrice * mainNoPeople;
+            document.getElementById("driversMoney").innerHTML = mainDriversMoney.toFixed(2);
+
+            const passengerDivs = document.querySelectorAll(".passenger");
+            passengerDivs.forEach(passenger => {
+                const noPeople = parseInt(passenger.querySelector(".no_of_people").value) || 0;
+                const driversMoney = taxiPrice * noPeople;
+                passenger.querySelector(".driversMoney").textContent = driversMoney.toFixed(2);
+            });
+        }
+
+        function calcChange() {
+            const mainAmtPaid = parseFloat(document.getElementById("amtPaid").value) || 0;
+            const mainDriversMoney = parseFloat(document.getElementById("driversMoney").textContent) || 0;
+            const mainChange = mainAmtPaid - mainDriversMoney;
+            document.getElementById("change").innerHTML = mainChange.toFixed(2);
+
+            const passengerDivs = document.querySelectorAll(".passenger");
+            passengerDivs.forEach(passenger => {
+                const amtPaid = parseFloat(passenger.querySelector(".amtPaid").value) || 0;
+                const driversMoney = parseFloat(passenger.querySelector(".driversMoney").textContent) || 0;
+                const change = amtPaid - driversMoney;
+                passenger.querySelector(".change").textContent = change.toFixed(2);
+            });
+        }
+    </script>
+</body>
+
+</html>
