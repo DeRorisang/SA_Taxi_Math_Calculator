@@ -1,0 +1,52 @@
+
+body{
+    background-color:lightgray ;
+    text-align: center;
+}
+
+.header{
+    background-color:gray;
+    width: 100%;
+    top: 0;
+    position: fixed;
+}
+
+.price{
+    background-color: lightgray;
+    position: fixed;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#paragraphDriverMoney{
+    color: grey
+}
+
+.main{
+    margin-top: 135px;
+    margin-bottom: 105px;
+}
+
+
+#btnAddPassenger{
+    background-color: grey;
+    color: white;
+    height: 35px;
+}
+
+#btnCalculate{
+    height: 50px;
+    width: 95px;
+    margin-top: 30px;
+    background-color: lightgray;
+}
+
+.footer{
+    background-color:gray;
+    width: 100%;
+    height: 100px;
+    bottom: 0;
+    position: fixed;
+}
+
